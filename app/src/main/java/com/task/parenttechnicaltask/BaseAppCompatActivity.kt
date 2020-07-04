@@ -6,7 +6,8 @@ import androidx.fragment.app.FragmentTransaction
 
 open class BaseAppCompatActivity : AppCompatActivity() {
     protected fun getFrameResource(): Int {
-        return R.id.main_frame
+        return 0
+//        R.id.main_frame
     }
 
     fun navigateToFragment(
