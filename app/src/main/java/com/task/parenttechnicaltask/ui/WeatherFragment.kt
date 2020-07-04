@@ -3,6 +3,7 @@ package com.task.parenttechnicaltask.ui
 import android.Manifest
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -61,6 +62,7 @@ class WeatherFragment : Fragment() {
 //        var v = inflater.inflate(R.layout.fragment_weather, container, false)
         mainBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_weather, container, false)
         mainBinding.viewmodel = weatherViewModel
+        mainBinding.viewmodel1 = cityViewModel
         mainBinding.lifecycleOwner = this
         return mainBinding.root
     }
@@ -117,6 +119,10 @@ class WeatherFragment : Fragment() {
     }
 
     private fun WeatherFragment.manageAutoCompleteAdapter() {
+        cityViewModel.selectedCity.observe(viewLifecycleOwner, Observer {
+
+            Log.d("", "")
+        })
         val adapter =
             ArrayAdapter<String>(activity, android.R.layout.simple_list_item_1, cities)
         autoCompleteTextView.threshold = 1 //will start working from first character

@@ -20,15 +20,17 @@
         android:layout_height="match_parent"
         tools:context=".ui.WeatherFragment">
 
-
+        <!--        value="@{viewmodel1.selectedCity}"-->
         <AutoCompleteTextView
             android:id="@+id/autoCompleteTextView"
             entries="@{viewmodel1.dataSource}"
+
             android:layout_width="0dp"
-            testAtt="balh"
             android:layout_height="wrap_content"
             android:hint="@string/add_city"
+            android:onItemSelected="@{() -> viewmodel1.itemSelected(viewmodel1.autoCompleteTv)}"
             android:text="@{viewmodel1.autoCompleteTv}"
+            android:textColor="@color/design_default_color_error"
             app:layout_constraintEnd_toStartOf="@+id/imageView"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
