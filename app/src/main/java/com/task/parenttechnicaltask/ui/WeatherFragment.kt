@@ -24,7 +24,7 @@ import com.task.parenttechnicaltask.utils.LocationHelper
 import com.task.parenttechnicaltask.utils.PermissionHelper
 import com.task.parenttechnicaltask.viewmodel.CityViewModel
 import com.task.parenttechnicaltask.ui.wrappers.CityWeatherWrapper
-import com.tests.newandroid.viewmodel.WeatherFragmentViewModelKt
+import com.tests.newandroid.viewmodel.WeatherViewModel
 import kotlinx.android.synthetic.main.fragment_weather.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -40,7 +40,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class WeatherFragment : Fragment() {
 
 
-    val weatherViewModel: WeatherFragmentViewModelKt by viewModel()
+    val weatherViewModel: WeatherViewModel by viewModel()
     val cityViewModel: CityViewModel by viewModel()
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private var cityWeatherWrappers = ArrayList<CityWeatherWrapper>()

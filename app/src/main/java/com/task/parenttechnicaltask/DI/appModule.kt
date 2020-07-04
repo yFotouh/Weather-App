@@ -7,7 +7,7 @@ import com.task.parenttechnicaltask.viewmodel.CityViewModel
 import com.tests.newandroid.models.WeatherRepository
 import com.tests.newandroid.models.WeatherRepositoryCoImpl
 import com.tests.newandroid.models.WeatherRepositoryDummy
-import com.tests.newandroid.viewmodel.WeatherFragmentViewModelKt
+import com.tests.newandroid.viewmodel.WeatherViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -19,7 +19,7 @@ val appModule = module {
     factory<CityRepository> { CityRepositoryImpl() }
 //    factory<CityRepository> { CityRepositoryImpl() }
 //    factory { MainActivityViewModelKt(get()) }
-    viewModel { WeatherFragmentViewModelKt(get()) }
+    viewModel { WeatherViewModel(get()) }
     viewModel { CityViewModel(get()) }
 
 //    single<AppPrefs>()
@@ -30,7 +30,7 @@ val appModule = module {
 val testModule = module {
 
     factory<WeatherRepository> { WeatherRepositoryDummy() }
-    viewModel { WeatherFragmentViewModelKt(get()) }
+    viewModel { WeatherViewModel(get()) }
 
     factory<CityRepository> { CityRepositoryDummy() }
     viewModel { CityViewModel(get()) }

@@ -1,12 +1,14 @@
 package com.tests.newandroid.viewmodel
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.task.parenttechnicaltask.ui.wrappers.CityWeatherWrapper
 import com.tests.newandroid.models.WeatherRepository
 
-class WeatherFragmentViewModelKt(weatherRepository: WeatherRepository) : ViewModel() {
+class WeatherViewModel(weatherRepository: WeatherRepository) : ViewModel() {
     private var weatherRepositoryImpl: WeatherRepository? = null
+    val progressVisibility = MutableLiveData<Boolean>()
 
     init {
         weatherRepositoryImpl = weatherRepository
