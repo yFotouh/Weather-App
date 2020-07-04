@@ -2,8 +2,7 @@ package com.tests.newandroid.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.task.parenttechnicaltask.model.dto.response.WeatherResult
-import com.task.parenttechnicaltask.wrappers.CityWeatherWrapper
+import com.task.parenttechnicaltask.ui.wrappers.CityWeatherWrapper
 import com.tests.newandroid.models.WeatherRepository
 
 class WeatherFragmentViewModelKt(weatherRepository: WeatherRepository) : ViewModel() {

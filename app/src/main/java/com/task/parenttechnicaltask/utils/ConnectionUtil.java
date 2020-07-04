@@ -10,7 +10,7 @@ import com.task.parenttechnicaltask.AppClass;
 
 public class ConnectionUtil {
     public static NetworkInfo getNetworkInfo() {
-        ConnectivityManager connMgr = (ConnectivityManager) AppClass.getInstance()
+        ConnectivityManager connMgr = (ConnectivityManager) AppClass.Companion.getInstance()
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
         return connMgr.getActiveNetworkInfo();
     }
@@ -22,7 +22,7 @@ public class ConnectionUtil {
 
     public static boolean isGpsWorking() {
 
-        final LocationManager manager = (LocationManager) AppClass.getInstance().getSystemService(Context.LOCATION_SERVICE);
+        final LocationManager manager = (LocationManager) AppClass.Companion.getInstance().getSystemService(Context.LOCATION_SERVICE);
 
         return manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
     }

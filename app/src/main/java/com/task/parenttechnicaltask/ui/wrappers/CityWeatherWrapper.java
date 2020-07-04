@@ -1,4 +1,4 @@
-package com.task.parenttechnicaltask.wrappers;
+package com.task.parenttechnicaltask.ui.wrappers;
 
 import com.task.parenttechnicaltask.model.dto.response.WeatherResult;
 

@@ -5,15 +5,13 @@ import android.preference.PreferenceManager;
 
 import com.google.gson.Gson;
 import com.task.parenttechnicaltask.AppClass;
-import com.task.parenttechnicaltask.model.dto.response.City;
-import com.task.parenttechnicaltask.wrappers.CachedWeatherData;
-import com.task.parenttechnicaltask.wrappers.CityWeatherWrapper;
-import com.task.parenttechnicaltask.wrappers.CityWrapper;
+import com.task.parenttechnicaltask.ui.wrappers.CachedWeatherData;
+import com.task.parenttechnicaltask.ui.wrappers.CityWeatherWrapper;
+import com.task.parenttechnicaltask.ui.wrappers.CityWrapper;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class AppPrefs {
     private static AppPrefs appPrefs;
@@ -26,7 +24,7 @@ public class AppPrefs {
     private SharedPreferences.Editor editor;
 
     public AppPrefs() {
-        pref = PreferenceManager.getDefaultSharedPreferences(AppClass.getInstance());
+        pref = PreferenceManager.getDefaultSharedPreferences(AppClass.Companion.getInstance());
         editor = pref.edit();
 
     }

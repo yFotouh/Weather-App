@@ -1,7 +1,7 @@
-package com.task.parenttechnicaltask
+package com.task.parenttechnicaltask.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.task.parenttechnicaltask.R
 
 class MainActivity : BaseAppCompatActivity() {
 

@@ -1,4 +1,4 @@
-package com.task.parenttechnicaltask.repository
+package com.task.parenttechnicaltask.model.repository
 
 import androidx.lifecycle.LiveData
 import com.google.gson.Gson
@@ -7,8 +7,8 @@ import com.task.parenttechnicaltask.AppClass
 import com.task.parenttechnicaltask.utils.AppPrefs
 import com.task.parenttechnicaltask.utils.FileSystemHelper
 import com.task.parenttechnicaltask.utils.SingleLiveEvent
-import com.task.parenttechnicaltask.wrappers.ACity
-import com.task.parenttechnicaltask.wrappers.CityWrapper
+import com.task.parenttechnicaltask.ui.wrappers.ACity
+import com.task.parenttechnicaltask.ui.wrappers.CityWrapper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -37,7 +37,7 @@ class CityRepositoryImpl : BaseRepository(), CityRepository {
             if (cityWrapper == null) {
                 cityWrapper = CityWrapper()
                 var citiesString =
-                    FileSystemHelper.readFileFromAssests(AppClass.getInstance(), "cities.json");
+                    FileSystemHelper.readFileFromAssests(AppClass.instance, "cities.json");
                 val gson = Gson()
                 val listType: Type = object : TypeToken<List<ACity?>?>() {}.type
                 val allCities: List<ACity> =

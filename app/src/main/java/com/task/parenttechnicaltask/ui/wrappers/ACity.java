@@ -1,4 +1,4 @@
-package com.task.parenttechnicaltask.wrappers;
+package com.task.parenttechnicaltask.ui.wrappers;
 
 public class ACity {
     public String country;

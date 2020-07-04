@@ -1,9 +1,7 @@
 package com.tests.newandroid.models
 
 import androidx.lifecycle.MutableLiveData
-import com.task.parenttechnicaltask.model.dto.response.WeatherResult
-import com.task.parenttechnicaltask.utils.SingleLiveEvent
-import com.task.parenttechnicaltask.wrappers.CityWeatherWrapper
+import com.task.parenttechnicaltask.ui.wrappers.CityWeatherWrapper
 
 interface WeatherRepository {
     fun getForecastMutableLiveData(city: String): MutableLiveData<CityWeatherWrapper>

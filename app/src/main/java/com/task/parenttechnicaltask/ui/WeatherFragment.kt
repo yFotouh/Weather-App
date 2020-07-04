@@ -1,4 +1,4 @@
-package com.task.parenttechnicaltask
+package com.task.parenttechnicaltask.ui
 
 import android.Manifest
 import android.graphics.Color
@@ -17,17 +17,16 @@ import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
-import com.task.parenttechnicaltask.adapter.CityAdapter
-import com.task.parenttechnicaltask.adapter.ICityAction
+import com.task.parenttechnicaltask.R
+import com.task.parenttechnicaltask.ui.adapter.CityAdapter
+import com.task.parenttechnicaltask.ui.adapter.ICityAction
 import com.task.parenttechnicaltask.utils.LocationHelper
 import com.task.parenttechnicaltask.utils.PermissionHelper
 import com.task.parenttechnicaltask.viewmodel.CityViewModel
-import com.task.parenttechnicaltask.wrappers.CityWeatherWrapper
+import com.task.parenttechnicaltask.ui.wrappers.CityWeatherWrapper
 import com.tests.newandroid.viewmodel.WeatherFragmentViewModelKt
 import kotlinx.android.synthetic.main.fragment_weather.*
-import kotlinx.android.synthetic.main.include_weather_forecast.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.util.stream.Collectors
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -148,12 +147,15 @@ class WeatherFragment : Fragment() {
 
     private fun refreshAdapter() {
 
-        viewAdapter = CityAdapter(cityWeatherWrappers, activity, ICityAction {
-            cityWeatherWrappers.remove(it)
-            citySet.remove(it.cityName)
-            weatherViewModel.cacheWeatherData(cityWeatherWrappers)
-            refreshAdapter()
-        })
+        viewAdapter = CityAdapter(
+            cityWeatherWrappers,
+            activity,
+            ICityAction {
+                cityWeatherWrappers.remove(it)
+                citySet.remove(it.cityName)
+                weatherViewModel.cacheWeatherData(cityWeatherWrappers)
+                refreshAdapter()
+            })
         var linearLayoutManager = LinearLayoutManager(activity)
         rv_cities.layoutManager = linearLayoutManager
         rv_cities.adapter = viewAdapter
@@ -170,7 +172,7 @@ class WeatherFragment : Fragment() {
 
         weatherViewModel.getForecast(lat, lon).observe(viewLifecycleOwner, Observer {
 //            if (cityWeatherWrappers.size == 0)
-                updateListAndAdapter(it)
+            updateListAndAdapter(it)
 
         })
     }

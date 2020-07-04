@@ -1,14 +1,13 @@
 package com.tests.newandroid.models
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.task.parenttechnicaltask.model.dto.response.WeatherResult
 import com.task.parenttechnicaltask.network.Api
-import com.task.parenttechnicaltask.repository.BaseRepository
+import com.task.parenttechnicaltask.model.repository.BaseRepository
 import com.task.parenttechnicaltask.utils.AppPrefs
 import com.task.parenttechnicaltask.utils.SingleLiveEvent
-import com.task.parenttechnicaltask.wrappers.CityWeatherWrapper
-import com.task.parenttechnicaltask.wrappers.WeatherDay
+import com.task.parenttechnicaltask.ui.wrappers.CityWeatherWrapper
+import com.task.parenttechnicaltask.ui.wrappers.WeatherDay
 import kotlinx.coroutines.*
 import java.text.SimpleDateFormat
 import kotlin.collections.ArrayList

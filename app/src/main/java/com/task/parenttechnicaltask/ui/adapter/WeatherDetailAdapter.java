@@ -1,4 +1,4 @@
-package com.task.parenttechnicaltask.adapter;
+package com.task.parenttechnicaltask.ui.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,8 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.task.parenttechnicaltask.R;
-import com.task.parenttechnicaltask.model.dto.response.AList;
-import com.task.parenttechnicaltask.wrappers.WeatherDay;
+import com.task.parenttechnicaltask.ui.wrappers.WeatherDay;
 
 import java.util.List;
 

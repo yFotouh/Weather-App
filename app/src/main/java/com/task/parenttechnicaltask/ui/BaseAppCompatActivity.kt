@@ -1,4 +1,4 @@
-package com.task.parenttechnicaltask
+package com.task.parenttechnicaltask.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
