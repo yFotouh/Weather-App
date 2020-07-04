@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.task.parenttechnicaltask.model.dto.response.WeatherResult
 import com.task.parenttechnicaltask.network.Api
+import com.task.parenttechnicaltask.repository.BaseRepository
 import com.task.parenttechnicaltask.utils.AppPrefs
 import com.task.parenttechnicaltask.utils.SingleLiveEvent
 import com.task.parenttechnicaltask.wrappers.CityWeatherWrapper
@@ -14,34 +15,11 @@ import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 import kotlin.collections.LinkedHashMap
 
-class WeatherRepositoryCoImpl : WeatherRepository {
-    private val parentJob = Job()
+class WeatherRepositoryCoImpl : BaseRepository(), WeatherRepository {
     private val mutableLiveData =
         SingleLiveEvent<CityWeatherWrapper>()
     private val cachedMutableLiveData =
         SingleLiveEvent<ArrayList<CityWeatherWrapper>>()
-
-    // 1
-    private val coroutineExceptionHandler: CoroutineExceptionHandler =
-        CoroutineExceptionHandler { _, throwable ->
-            //2
-            coroutineScope.launch(Dispatchers.Main) {
-                //3
-                Log.e("error", "error");
-//                errorMessage.visibility = View.VISIBLE
-//                errorMessage.text = getString(R.string.error_message)
-            }
-
-            GlobalScope.launch {
-                println("Caught $throwable")
-            }
-        }
-
-    private val coroutineScope = CoroutineScope(
-        Dispatchers.Main + parentJob +
-                coroutineExceptionHandler
-    )
-
 
     override fun getForecastMutableLiveData(city: String): SingleLiveEvent<CityWeatherWrapper> {
 
@@ -115,24 +93,25 @@ class WeatherRepositoryCoImpl : WeatherRepository {
     suspend fun manageData(data: WeatherResult): List<WeatherDay> {
         return withContext(Dispatchers.IO)
         {
-            var hashMap: HashMap<String, ArrayList<Double>> =
-                LinkedHashMap<String, ArrayList<Double>>()
+            var hashMap: HashMap<String, Double> =
+                LinkedHashMap<String, Double>()
             for ((index, value) in data.theList.withIndex()) {
                 var simpleDateformat =
                     SimpleDateFormat("E") // the day of the week abbreviated
                 var day = simpleDateformat.format(value.dt * 1000)
                 var dayInMap = hashMap.get(day)
                 if (dayInMap == null)
-                    dayInMap = ArrayList<Double>()
-                dayInMap.add(value.main.temp_max)
-                hashMap.put(day, dayInMap)
+                    dayInMap = 0f.toDouble()
+                hashMap.put(day, Math.max(dayInMap, value.main.temp_max))
 
             }
             var list = arrayListOf<WeatherDay>()
             for ((key, value) in hashMap) {
                 var weatherDay = WeatherDay()
                 weatherDay.day = key
-                weatherDay.temperature = value.average().toInt() - 273.15f.toInt()
+                weatherDay.temperature = value.toInt()
+                if (list.size == 5)
+                    break
                 list.add(weatherDay)
             }
             return@withContext list

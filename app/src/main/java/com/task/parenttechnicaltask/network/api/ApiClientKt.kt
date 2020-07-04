@@ -7,11 +7,15 @@ import retrofit2.http.Query
 
 interface ApiClientKt {
     @GET("forecast")
-    suspend fun get5Days(@Query("q") title: String): WeatherResult
+    suspend fun get5Days(
+        @Query("q") title: String,
+        @Query("units") units: String = "metric"
+    ): WeatherResult
 
     @GET("forecast")
     suspend fun get5DaysByLocation(
         @Query("lat") lat: Float,
-        @Query("lon") lon: Float
+        @Query("lon") lon: Float,
+        @Query("units") units: String = "metric"
     ): WeatherResult
 }
