@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView.OnItemClickListener
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,6 +19,7 @@ import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.task.parenttechnicaltask.R
+import com.task.parenttechnicaltask.databinding.FragmentWeatherBinding
 import com.task.parenttechnicaltask.ui.adapter.CityAdapter
 import com.task.parenttechnicaltask.ui.adapter.ICityAction
 import com.task.parenttechnicaltask.utils.LocationHelper
@@ -46,7 +48,7 @@ class WeatherFragment : Fragment() {
     private var cityWeatherWrappers = ArrayList<CityWeatherWrapper>()
     lateinit var cities: List<String>
     lateinit var citySet: HashSet<String>
-
+    lateinit var mainBinding: FragmentWeatherBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -56,9 +58,11 @@ class WeatherFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        var v = inflater.inflate(R.layout.fragment_weather, container, false)
-
-        return v
+//        var v = inflater.inflate(R.layout.fragment_weather, container, false)
+        mainBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_weather, container, false)
+        mainBinding.viewmodel = weatherViewModel
+        mainBinding.lifecycleOwner = this
+        return mainBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

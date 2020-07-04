@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import com.task.parenttechnicaltask.ui.wrappers.CityWrapper
 
 class CityRepositoryDummy : CityRepository {
-    override fun getAllCities(): LiveData<CityWrapper> {
+    override fun getAllCities(): CityWrapper {
         TODO("Not yet implemented")
     }
 }

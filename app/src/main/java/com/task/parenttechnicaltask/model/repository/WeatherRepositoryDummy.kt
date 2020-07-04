@@ -1,23 +1,16 @@
 package com.tests.newandroid.models
 
 import androidx.lifecycle.MutableLiveData
+import com.task.parenttechnicaltask.model.dto.response.WeatherResult
 import com.task.parenttechnicaltask.ui.wrappers.CityWeatherWrapper
 
 class WeatherRepositoryDummy : WeatherRepository {
-    private val mutableLiveData =
-        MutableLiveData<CityWeatherWrapper>()
-    override fun getForecastMutableLiveData(city : String): MutableLiveData<CityWeatherWrapper> {
-//        val books =
-//            ArrayList<Book>()
-        var result= CityWeatherWrapper()
-        mutableLiveData.setValue(result)
-        return mutableLiveData
+
+    override suspend fun getForecastData(city: String): WeatherResult {
+        TODO("Not yet implemented")
     }
 
-    override fun getForecastMutableLiveData(
-        lat: Float,
-        lon: Float
-    ): MutableLiveData<CityWeatherWrapper> {
+    override suspend fun getForecastData(lat: Float, lon: Float): WeatherResult {
         TODO("Not yet implemented")
     }
 
@@ -25,7 +18,7 @@ class WeatherRepositoryDummy : WeatherRepository {
         TODO("Not yet implemented")
     }
 
-    override fun getAllWeatherData(): MutableLiveData<ArrayList<CityWeatherWrapper>> {
+    override fun getAllWeatherData(): ArrayList<CityWeatherWrapper> {
         TODO("Not yet implemented")
     }
 

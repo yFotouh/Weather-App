@@ -5,7 +5,7 @@ import com.task.parenttechnicaltask.model.repository.CityRepositoryDummy
 import com.task.parenttechnicaltask.model.repository.CityRepositoryImpl
 import com.task.parenttechnicaltask.viewmodel.CityViewModel
 import com.tests.newandroid.models.WeatherRepository
-import com.tests.newandroid.models.WeatherRepositoryCoImpl
+import com.tests.newandroid.models.WeatherRepositoryImpl
 import com.tests.newandroid.models.WeatherRepositoryDummy
 import com.tests.newandroid.viewmodel.WeatherViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -15,7 +15,7 @@ import org.koin.dsl.module
 val appModule = module {
 
 //    factory<BookRepository> {(appClass: AppClass) -> BookRepositoryImpl() }
-    factory<WeatherRepository> { WeatherRepositoryCoImpl() }
+    factory<WeatherRepository> { WeatherRepositoryImpl() }
     factory<CityRepository> { CityRepositoryImpl() }
 //    factory<CityRepository> { CityRepositoryImpl() }
 //    factory { MainActivityViewModelKt(get()) }
