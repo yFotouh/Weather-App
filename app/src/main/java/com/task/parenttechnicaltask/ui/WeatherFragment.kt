@@ -26,7 +26,7 @@ import com.task.parenttechnicaltask.utils.LocationHelper
 import com.task.parenttechnicaltask.utils.PermissionHelper
 import com.task.parenttechnicaltask.viewmodel.CityViewModel
 import com.task.parenttechnicaltask.ui.wrappers.CityWeatherWrapper
-import com.tests.newandroid.viewmodel.WeatherViewModel
+import com.task.parenttechnicaltask.viewmodel.WeatherViewModel
 import kotlinx.android.synthetic.main.fragment_weather.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

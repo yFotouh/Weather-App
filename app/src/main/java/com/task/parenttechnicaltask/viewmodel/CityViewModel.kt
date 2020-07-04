@@ -1,6 +1,7 @@
 package com.task.parenttechnicaltask.viewmodel
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.task.parenttechnicaltask.model.dto.response.WeatherResult
 import com.task.parenttechnicaltask.model.repository.CityRepository
@@ -16,6 +17,12 @@ class CityViewModel(cityRepository: CityRepository) : BaseViewModel() {
     private val mutableLiveData =
         SingleLiveEvent<CityWrapper>()
 
+    //    val dataSource =
+//        MutableLiveData<List<String>>(emptyList<String>())
+    var dataSource =
+        emptyList<String>()
+    val autoCompleteTv = MutableLiveData<String>()
+
     init {
         this.cityRepository = cityRepository
     }
@@ -23,7 +30,8 @@ class CityViewModel(cityRepository: CityRepository) : BaseViewModel() {
     fun getCities(): LiveData<CityWrapper> {
         coroutineScope.launch(Dispatchers.Main) {
             var cities = fetchCities()
-
+            dataSource = cities.citiesName
+//            dataSource.value = cities.citiesName
         }
         return mutableLiveData
     }

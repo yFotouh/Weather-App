@@ -1,4 +1,4 @@
-package com.tests.newandroid.viewmodel
+package com.task.parenttechnicaltask.viewmodel
 
 import android.opengl.Visibility
 import android.view.View
@@ -6,12 +6,12 @@ import android.view.View.GONE
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.task.parenttechnicaltask.model.dto.response.WeatherResult
+import com.task.parenttechnicaltask.model.repository.WeatherRepository
 import com.task.parenttechnicaltask.network.Api
 import com.task.parenttechnicaltask.ui.wrappers.CityWeatherWrapper
 import com.task.parenttechnicaltask.ui.wrappers.WeatherDay
 import com.task.parenttechnicaltask.utils.SingleLiveEvent
 import com.task.parenttechnicaltask.viewmodel.BaseViewModel
-import com.tests.newandroid.models.WeatherRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -23,8 +23,8 @@ class WeatherViewModel(weatherRepository: WeatherRepository) : BaseViewModel() {
     private val cachedMutableLiveData =
         SingleLiveEvent<ArrayList<CityWeatherWrapper>>()
     private var weatherRepositoryImpl: WeatherRepository? = null
-    val progressVisibility = MutableLiveData<Int>()
-    val autoCompleteTv = MutableLiveData<String>()
+
+
     init {
         weatherRepositoryImpl = weatherRepository
     }

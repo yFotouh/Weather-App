@@ -1,4 +1,4 @@
-package com.tests.newandroid.models
+package com.task.parenttechnicaltask.model.repository
 
 import androidx.lifecycle.MutableLiveData
 import com.task.parenttechnicaltask.model.dto.response.WeatherResult

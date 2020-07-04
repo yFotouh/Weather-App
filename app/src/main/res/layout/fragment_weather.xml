@@ -8,8 +8,11 @@
 
         <variable
             name="viewmodel"
-            type="com.tests.newandroid.viewmodel.WeatherViewModel" />
+            type="com.task.parenttechnicaltask.viewmodel.WeatherViewModel" />
 
+        <variable
+            name="viewmodel1"
+            type="com.task.parenttechnicaltask.viewmodel.CityViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,10 +23,12 @@
 
         <AutoCompleteTextView
             android:id="@+id/autoCompleteTextView"
+            entries="@{viewmodel1.dataSource}"
             android:layout_width="0dp"
+            testAtt="balh"
             android:layout_height="wrap_content"
             android:hint="@string/add_city"
-            android:text="@{viewmodel.autoCompleteTv}"
+            android:text="@{viewmodel1.autoCompleteTv}"
             app:layout_constraintEnd_toStartOf="@+id/imageView"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
