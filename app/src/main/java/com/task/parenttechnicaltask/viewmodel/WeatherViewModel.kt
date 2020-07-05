@@ -32,10 +32,10 @@ class WeatherViewModel(weatherRepository: WeatherRepository) : BaseViewModel() {
     fun getForecast(city: String): LiveData<CityWeatherWrapper> {
 
         coroutineScope.launch(Dispatchers.Main) {
-            progressVisibility.value = View.VISIBLE
+            progressVisibility.value = true
             var weatherResponse = fetchWeatherByCity(city)
             handleResponse(weatherResponse, city)
-            progressVisibility.postValue(View.GONE)
+            progressVisibility.postValue(false)
         }
         return mutableLiveData
 
@@ -57,10 +57,10 @@ class WeatherViewModel(weatherRepository: WeatherRepository) : BaseViewModel() {
 
     fun getForecast(lat: Float, lon: Float): LiveData<CityWeatherWrapper> {
         coroutineScope.launch(Dispatchers.Main) {
-            progressVisibility.value = View.VISIBLE
+            progressVisibility.value = true
             var weatherResponse = fetchWeatherByLatLong(lat, lon)
             handleResponse(weatherResponse, weatherResponse.city?.name)
-            progressVisibility.postValue(View.GONE)
+            progressVisibility.postValue(false)
         }
         return mutableLiveData
 
@@ -105,10 +105,10 @@ class WeatherViewModel(weatherRepository: WeatherRepository) : BaseViewModel() {
     fun getCachedWeatherData(): SingleLiveEvent<ArrayList<CityWeatherWrapper>> {
 
         coroutineScope.launch(Dispatchers.Main) {
-            progressVisibility.value = View.VISIBLE
+            progressVisibility.value = true
             var weatherResponse = getCached()
             cachedMutableLiveData.value = weatherResponse
-            progressVisibility.postValue(View.GONE)
+            progressVisibility.postValue(false)
         }
         return cachedMutableLiveData
 

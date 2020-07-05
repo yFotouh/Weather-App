@@ -22,10 +22,11 @@ import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.task.parenttechnicaltask.R
-import com.task.parenttechnicaltask.databinding.FragmentWeatherBinding
 import com.task.parenttechnicaltask.ui.adapter.CityAdapter
 import com.task.parenttechnicaltask.ui.adapter.ICityAction
+import com.task.parenttechnicaltask.ui.base.BaseFragment
 import com.task.parenttechnicaltask.ui.wrappers.CityWeatherWrapper
+import com.task.parenttechnicaltask.utils.AppPrefs
 import com.task.parenttechnicaltask.utils.LocationHelper
 import com.task.parenttechnicaltask.utils.PermissionHelper
 import com.task.parenttechnicaltask.viewmodel.CityViewModel
@@ -42,7 +43,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
  * Use the [WeatherFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class WeatherFragment : Fragment() {
+class WeatherFragment : BaseFragment() {
 
 
     val weatherViewModel: WeatherViewModel by viewModel()
@@ -51,32 +52,28 @@ class WeatherFragment : Fragment() {
     private var cityWeatherWrappers = ArrayList<CityWeatherWrapper>()
     lateinit var cities: List<String>
     lateinit var citySet: HashSet<String>
-    lateinit var mainBinding: FragmentWeatherBinding
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+
+    //    lateinit var mainBinding: FragmentWeatherBinding
+
+    override fun getLayoutId(): Int {
+        return R.layout.fragment_weather
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-//        var v = inflater.inflate(R.layout.fragment_weather, container, false)
-        mainBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_weather, container, false)
-        mainBinding.viewmodel = weatherViewModel
-        mainBinding.viewmodel1 = cityViewModel
-        mainBinding.lifecycleOwner = this
-        return mainBinding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun doOnViewCreated(view: View, savedInstanceState: Bundle?) {
         citySet = HashSet<String>()
+        observeProgressBar()
         getAllCities()
         refreshAdapter()
         getCachedWeatherData()
         getCurrentLocationForecastOrLondon()
     }
+
+    private fun observeProgressBar() {
+        weatherViewModel.progressVisibility.observe(viewLifecycleOwner, Observer {
+            toggleProgressBarState(it)
+        })
+    }
+
 
     private fun getAllCities() {
         cityViewModel.getCities().observe(viewLifecycleOwner, Observer {
@@ -87,13 +84,15 @@ class WeatherFragment : Fragment() {
     }
 
     private fun getCurrentLocationForecastOrLondon() {
+        if (AppPrefs.get().hasCachedWeatherData == true)
+            return Unit
         PermissionHelper.getPermission(activity, object : MultiplePermissionsListener {
             override fun onPermissionsChecked(multiplePermissionsReport: MultiplePermissionsReport) {
                 if (multiplePermissionsReport.areAllPermissionsGranted()) {
                     LocationHelper.getSingleLocation(activity)
                         .observe(viewLifecycleOwner, Observer {
-                            if (cityWeatherWrappers.size == 0)
-                                callWebApiByCordiante(it.latitude.toFloat(), it.longitude.toFloat())
+
+                            callWebApiByCordiante(it.latitude.toFloat(), it.longitude.toFloat())
 
                         })
                 } else {
@@ -120,40 +119,25 @@ class WeatherFragment : Fragment() {
         })
     }
 
-    private fun WeatherFragment.manageAutoCompleteAdapter() {
-        cityViewModel.selectedCity.observe(viewLifecycleOwner, Observer {
-
-            Log.d("", "")
-        })
+    private fun manageAutoCompleteAdapter() {
         val adapter =
             ArrayAdapter<String>(activity, android.R.layout.simple_list_item_1, cities)
         autoCompleteTextView.threshold = 1 //will start working from first character
         autoCompleteTextView.setAdapter(adapter) //setting the adapter data into the AutoCompleteTextView
         autoCompleteTextView.setTextColor(Color.RED)
-        autoCompleteTextView.onItemSelectedListener = object : OnItemSelectedListener {
-            override fun onItemSelected(
-                adapterView: AdapterView<*>?,
-                view: View,
-                i: Int,
-                l: Long
-            ) {
-            }
-
-            override fun onNothingSelected(adapterView: AdapterView<*>?) {}
-        }
         autoCompleteTextView.setOnItemClickListener(OnItemClickListener { parent, view, position, id ->
             val selected =
                 parent.getItemAtPosition(position) as String
-            if (getCityFromApi(selected)) return@OnItemClickListener Unit
+            getCityFromApi(selected)
 
         })
     }
 
-    private fun getCityFromApi(selected: String): Boolean {
+    private fun getCityFromApi(selected: String): Unit {
         if (citySet.contains(selected) == true) {
             autoCompleteTextView.setText("")
             Toast.makeText(activity, getString(R.string.city_already), Toast.LENGTH_LONG).show()
-            return true
+            return Unit
         }
         if (cityWeatherWrappers.size >= 5) {
             Toast.makeText(activity, getString(R.string.max_cities), Toast.LENGTH_LONG)
@@ -163,7 +147,6 @@ class WeatherFragment : Fragment() {
             callWebApi(selected)
             autoCompleteTextView.setText("")
         }
-        return false
     }
 
     private fun refreshAdapter() {

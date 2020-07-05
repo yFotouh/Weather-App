@@ -29,8 +29,8 @@ class CityViewModel(cityRepository: CityRepository) : BaseViewModel() {
     val dataSource =
         MutableLiveData<List<String>>(emptyList<String>())
 
-    val autoCompleteTv = MutableLiveData<String>("")
-    val selectedCity = MutableLiveData<String>("")
+//    val autoCompleteTv = MutableLiveData<String>("")
+//    val selectedCity = MutableLiveData<String>("")
 
     init {
         this.cityRepository = cityRepository
@@ -39,20 +39,12 @@ class CityViewModel(cityRepository: CityRepository) : BaseViewModel() {
     fun getCities(): LiveData<CityWrapper> {
         coroutineScope.launch(Dispatchers.Main) {
             var cities = fetchCities()
-//            dataSource = cities.citiesName
-            dataSource.value = cities.citiesName
+            mutableLiveData.value = cities
+//            dataSource.value = cities.citiesName
         }
         return mutableLiveData
     }
 
-    //    fun itemSelected(value: String) {
-//        Log.d("", "")
-////        selectedCity.observe(ScopeCompat.lifecycleScope(this))
-//    }
-    fun makeToast(text: String) {
-        Toast.makeText(AppClass.instance, "Hello World", Toast.LENGTH_LONG).show()
-//        uNameLiveData.value = "3adel"
-    }
 
     suspend fun fetchCities(): CityWrapper {
         return withContext(Dispatchers.IO)
@@ -61,16 +53,4 @@ class CityViewModel(cityRepository: CityRepository) : BaseViewModel() {
         }!!
     }
 
-    val selected = object : AdapterView.OnItemSelectedListener {
-        override fun onItemSelected(
-            adapterView: AdapterView<*>?,
-            view: View,
-            i: Int,
-            l: Long
-        ) {
-            Log.d("", "")
-        }
-
-        override fun onNothingSelected(adapterView: AdapterView<*>?) {}
-    }
 }

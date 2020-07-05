@@ -1,68 +1,68 @@
-<?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?><!--<layout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    xmlns:tools="http://schemas.android.com/tools">-->
+
+<!--    <data>-->
+
+
+<!--        <variable-->
+<!--            name="viewmodel"-->
+<!--            type="com.task.parenttechnicaltask.viewmodel.WeatherViewModel" />-->
+
+<!--        <variable-->
+<!--            name="viewmodel1"-->
+<!--            type="com.task.parenttechnicaltask.viewmodel.CityViewModel" />-->
+<!--    </data>-->
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.WeatherFragment">
 
-    <data>
+    <!--        value="@{viewmodel1.selectedCity}"-->
+    <!--        android:onItemSelected="@{() -> viewmodel1.itemSelected(viewmodel1.autoCompleteTv)}"-->
+    <!--        android:text="@{viewmodel1.autoCompleteTv}"-->
+    <!--        entries="@{viewmodel1.dataSource}"-->
+    <AutoCompleteTextView
+        android:id="@+id/autoCompleteTextView"
 
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/add_city"
+        android:text=""
+        app:layout_constraintEnd_toStartOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <variable
-            name="viewmodel"
-            type="com.task.parenttechnicaltask.viewmodel.WeatherViewModel" />
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="@{() -> viewmodel1.makeToast(autoCompleteTextView.text.toString())}"
+        android:src="@android:drawable/ic_search_category_default"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <variable
-            name="viewmodel1"
-            type="com.task.parenttechnicaltask.viewmodel.CityViewModel" />
-    </data>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_cities"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/autoCompleteTextView" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ui.WeatherFragment">
-
-        <!--        value="@{viewmodel1.selectedCity}"-->
-        <!--        android:onItemSelected="@{() -> viewmodel1.itemSelected(viewmodel1.autoCompleteTv)}"-->
-        <!--        android:text="@{viewmodel1.autoCompleteTv}"-->
-        <AutoCompleteTextView
-            android:id="@+id/autoCompleteTextView"
-            entries="@{viewmodel1.dataSource}"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:hint="@string/add_city"
-            android:text="@{viewmodel1.autoCompleteTv}"
-            android:textColor="@color/design_default_color_error"
-            app:layout_constraintEnd_toStartOf="@+id/imageView"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="@{() -> viewmodel1.makeToast(autoCompleteTextView.text.toString())}"
-            android:src="@android:drawable/ic_search_category_default"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_cities"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/autoCompleteTextView" />
-
-        <ProgressBar
-            android:id="@+id/pBar"
-            style="?android:attr/progressBarStyleLarge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="@{viewmodel.progressVisibility}"
-            app:layout_constraintBottom_toBottomOf="@+id/rv_cities"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/rv_cities"
-            app:layout_constraintTop_toTopOf="@+id/autoCompleteTextView"></ProgressBar>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</layout>
+    <ProgressBar
+        android:id="@+id/pBar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/rv_cities"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/rv_cities"
+        app:layout_constraintTop_toTopOf="@+id/autoCompleteTextView"></ProgressBar>
+</androidx.constraintlayout.widget.ConstraintLayout><!--</layout>-->

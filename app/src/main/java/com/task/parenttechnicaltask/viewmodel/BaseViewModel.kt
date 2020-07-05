@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.*
 
 open class BaseViewModel : ViewModel() {
-    val progressVisibility = MutableLiveData<Int>()
+    val progressVisibility = MutableLiveData<Boolean>()
     protected val parentJob = Job()
     protected val coroutineExceptionHandler: CoroutineExceptionHandler =
         CoroutineExceptionHandler { _, throwable ->
@@ -17,7 +17,7 @@ open class BaseViewModel : ViewModel() {
 
             GlobalScope.launch {
                 println("Caught $throwable")
-                progressVisibility.postValue(View.GONE)
+                progressVisibility.postValue(false)
             }
         }
 

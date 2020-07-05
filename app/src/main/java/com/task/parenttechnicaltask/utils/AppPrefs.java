@@ -17,6 +17,7 @@ public class AppPrefs {
     private static AppPrefs appPrefs;
     private static final String CACHED_JOB_ID = "CACHED_JOB_ID";
     private static final String TOKEN = "TOKEN";
+    private static final String HAS_CACHED_WEATHER_DATA = "HAS_CACHED_WEATHER_DATA";
     private static final String CITIES = "CITIES";
     private static final String CACHED_WEATHER_DATA = "CACHED_WEATHER_DATA";
     private static final String REFRESH_TOKEN = "REFRESH_TOKEN";
@@ -51,6 +52,16 @@ public class AppPrefs {
         return pref.getString(REFRESH_TOKEN, null);
     }
 
+
+    public void setHasCachedWeatherData(boolean hasData) {
+        editor.putBoolean(HAS_CACHED_WEATHER_DATA, hasData);
+        editor.apply();
+    }
+
+    public boolean getHasCachedWeatherData() {
+        return pref.getBoolean(HAS_CACHED_WEATHER_DATA, false);
+    }
+
     public static AppPrefs get() {
         if (appPrefs == null)
             appPrefs = new AppPrefs();
@@ -71,6 +82,10 @@ public class AppPrefs {
         CachedWeatherData data = new CachedWeatherData();
         data.cityWeatherWrappers = cityWeatherWrappers;
         editor.putString(CACHED_WEATHER_DATA, new Gson().toJson(data));
+        if (data.cityWeatherWrappers.size() > 0)
+            setHasCachedWeatherData(true);
+        else
+            setHasCachedWeatherData(false);
         editor.apply();
     }
 

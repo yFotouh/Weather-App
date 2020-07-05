@@ -2,6 +2,7 @@ package com.task.parenttechnicaltask.ui
 
 import android.os.Bundle
 import com.task.parenttechnicaltask.R
+import com.task.parenttechnicaltask.ui.base.BaseAppCompatActivity
 
 class MainActivity : BaseAppCompatActivity() {
 
