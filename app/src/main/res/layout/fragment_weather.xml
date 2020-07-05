@@ -21,14 +21,14 @@
         tools:context=".ui.WeatherFragment">
 
         <!--        value="@{viewmodel1.selectedCity}"-->
+        <!--        android:onItemSelected="@{() -> viewmodel1.itemSelected(viewmodel1.autoCompleteTv)}"-->
+        <!--        android:text="@{viewmodel1.autoCompleteTv}"-->
         <AutoCompleteTextView
             android:id="@+id/autoCompleteTextView"
             entries="@{viewmodel1.dataSource}"
-
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="@string/add_city"
-            android:onItemSelected="@{() -> viewmodel1.itemSelected(viewmodel1.autoCompleteTv)}"
             android:text="@{viewmodel1.autoCompleteTv}"
             android:textColor="@color/design_default_color_error"
             app:layout_constraintEnd_toStartOf="@+id/imageView"
@@ -39,6 +39,7 @@
             android:id="@+id/imageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="@{() -> viewmodel1.makeToast(autoCompleteTextView.text.toString())}"
             android:src="@android:drawable/ic_search_category_default"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -47,6 +48,7 @@
             android:id="@+id/rv_cities"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginTop="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

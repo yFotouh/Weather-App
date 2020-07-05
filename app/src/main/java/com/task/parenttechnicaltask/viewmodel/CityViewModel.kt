@@ -1,11 +1,16 @@
 package com.task.parenttechnicaltask.viewmodel
 
+import android.content.Context
 import android.util.Log
+import android.view.View
+import android.widget.AdapterView
+import android.widget.Toast
 import androidx.databinding.Bindable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.task.parenttechnicaltask.AppClass
 import com.task.parenttechnicaltask.model.dto.response.WeatherResult
 import com.task.parenttechnicaltask.model.repository.CityRepository
 import com.task.parenttechnicaltask.ui.wrappers.CityWeatherWrapper
@@ -40,9 +45,13 @@ class CityViewModel(cityRepository: CityRepository) : BaseViewModel() {
         return mutableLiveData
     }
 
-    fun itemSelected(value: String) {
-        Log.d("", "")
-//        selectedCity.observe(ScopeCompat.lifecycleScope(this))
+    //    fun itemSelected(value: String) {
+//        Log.d("", "")
+////        selectedCity.observe(ScopeCompat.lifecycleScope(this))
+//    }
+    fun makeToast(text: String) {
+        Toast.makeText(AppClass.instance, "Hello World", Toast.LENGTH_LONG).show()
+//        uNameLiveData.value = "3adel"
     }
 
     suspend fun fetchCities(): CityWrapper {
@@ -50,5 +59,18 @@ class CityViewModel(cityRepository: CityRepository) : BaseViewModel() {
         {
             cityRepository!!.getAllCities()
         }!!
+    }
+
+    val selected = object : AdapterView.OnItemSelectedListener {
+        override fun onItemSelected(
+            adapterView: AdapterView<*>?,
+            view: View,
+            i: Int,
+            l: Long
+        ) {
+            Log.d("", "")
+        }
+
+        override fun onNothingSelected(adapterView: AdapterView<*>?) {}
     }
 }

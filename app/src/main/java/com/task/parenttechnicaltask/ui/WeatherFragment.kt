@@ -7,7 +7,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.AdapterView.OnItemClickListener
+import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
@@ -23,10 +25,10 @@ import com.task.parenttechnicaltask.R
 import com.task.parenttechnicaltask.databinding.FragmentWeatherBinding
 import com.task.parenttechnicaltask.ui.adapter.CityAdapter
 import com.task.parenttechnicaltask.ui.adapter.ICityAction
+import com.task.parenttechnicaltask.ui.wrappers.CityWeatherWrapper
 import com.task.parenttechnicaltask.utils.LocationHelper
 import com.task.parenttechnicaltask.utils.PermissionHelper
 import com.task.parenttechnicaltask.viewmodel.CityViewModel
-import com.task.parenttechnicaltask.ui.wrappers.CityWeatherWrapper
 import com.task.parenttechnicaltask.viewmodel.WeatherViewModel
 import kotlinx.android.synthetic.main.fragment_weather.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -126,10 +128,19 @@ class WeatherFragment : Fragment() {
         val adapter =
             ArrayAdapter<String>(activity, android.R.layout.simple_list_item_1, cities)
         autoCompleteTextView.threshold = 1 //will start working from first character
-
         autoCompleteTextView.setAdapter(adapter) //setting the adapter data into the AutoCompleteTextView
-
         autoCompleteTextView.setTextColor(Color.RED)
+        autoCompleteTextView.onItemSelectedListener = object : OnItemSelectedListener {
+            override fun onItemSelected(
+                adapterView: AdapterView<*>?,
+                view: View,
+                i: Int,
+                l: Long
+            ) {
+            }
+
+            override fun onNothingSelected(adapterView: AdapterView<*>?) {}
+        }
         autoCompleteTextView.setOnItemClickListener(OnItemClickListener { parent, view, position, id ->
             val selected =
                 parent.getItemAtPosition(position) as String
